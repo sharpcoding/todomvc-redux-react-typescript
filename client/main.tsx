@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, createStore } from 'redux';
+import { Store, createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import App from './main/components/App';
 import rootReducer from './main/reducer';
 
-const initialState = {};
-
-var reduxDevtoolsExtensionCallback = window['__REDUX_DEVTOOLS_EXTENSION__'];
-const store: Store<any> = createStore(rootReducer, reduxDevtoolsExtensionCallback && reduxDevtoolsExtensionCallback());
+//this is the callback function required in order to have this Chrome extension https://github.com/zalmoxisus/redux-devtools-extension working
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
+const store: Store<any> = createStore(rootReducer, composeEnhancers(applyMiddleware()));
 
 ReactDOM.render(
   <Provider store={store}>
