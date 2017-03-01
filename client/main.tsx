@@ -8,7 +8,8 @@ import rootReducer from './main/reducer';
 
 const initialState = {};
 
-const store: Store<any> = createStore(rootReducer, initialState);
+var reduxDevtoolsExtensionCallback = window['__REDUX_DEVTOOLS_EXTENSION__'];
+const store: Store<any> = createStore(rootReducer, reduxDevtoolsExtensionCallback && reduxDevtoolsExtensionCallback());
 
 ReactDOM.render(
   <Provider store={store}>
